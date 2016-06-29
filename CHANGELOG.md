@@ -1,5 +1,9 @@
 # master
 
+# 0.16.10
+
+* add instantion stack to node.toJSON to improve broccoli-viz output
+
 # 0.16.9
 
 * Update handlebars dependency
