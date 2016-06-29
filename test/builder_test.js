@@ -84,7 +84,7 @@ test('Builder', function (t) {
         builder.build().then(function (hash) {
           t.equal(hash.directory, 'foo')
           builder.build().catch(function (err) {
-            t.equal(err.message, 'bar')
+            t.equal(err.message, 'The Broccoli Plugin: [object Object] failed with:')
             return builder.cleanup()
           })
           .then(function() {
@@ -124,7 +124,7 @@ test('Builder', function (t) {
       // the actual results of process.hrtime() are not
       // reliable
       if (process.env.CI !== 'true') {
-        t.ok(a >= b - 5e6 && a <= b + 5e6, a + ' should be within ' + b + ' +/- 5e6')
+        t.ok(a >= b - 5e7 && a <= b + 5e7, a + ' should be within ' + b + ' +/- 5e7')
       }
     }
 
