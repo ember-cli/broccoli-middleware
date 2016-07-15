@@ -21,6 +21,7 @@
   "dependencies": {
     "findup-sync": "^0.2.1",
     "handlebars": "^4.0.4",
+    "heimdalljs": "^0.1.2",
     "mime": "^1.2.11",
     "promise-map-series": "^0.2.1",
     "quick-temp": "^0.1.2",
