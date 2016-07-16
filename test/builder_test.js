@@ -136,17 +136,14 @@ test('Builder', function (t) {
       var parentBroccoliNode = hash.graph
       t.equal(parentBroccoliNode.directory, 'parentTreeDir')
       t.equal(parentBroccoliNode.tree, parent)
-      // timeEqual(parentBroccoliNode.totalTime, 50e6)
       t.equal(parentBroccoliNode.subtrees.length, 1)
       var childBroccoliNode = parentBroccoliNode.subtrees[0]
       t.equal(childBroccoliNode.directory, 'childTreeDir')
       t.equal(childBroccoliNode.tree, child)
-      // timeEqual(childBroccoliNode.totalTime, 20e6)
       t.equal(childBroccoliNode.subtrees.length, 1)
       var leafBroccoliNode = childBroccoliNode.subtrees[0]
       t.equal(leafBroccoliNode.directory, 'srcDir')
       t.equal(leafBroccoliNode.tree, 'srcDir')
-      // t.equal(leafBroccoliNode.totalTime, 0)
       t.equal(leafBroccoliNode.subtrees.length, 0)
 
 
@@ -182,6 +179,7 @@ test('Builder', function (t) {
           _id: 1,
           id: {
             name: 'parent',
+            broccoliNode: true,
           },
           stats: {
             own: {},
@@ -192,6 +190,7 @@ test('Builder', function (t) {
           _id: 2,
           id: {
             name: 'child',
+            broccoliNode: true,
           },
           stats: {
             own: {},
@@ -202,6 +201,7 @@ test('Builder', function (t) {
           _id: 3,
           id: {
             name: 'srcDir',
+            broccoliNode: true,
           },
           stats: {
             own: {},
