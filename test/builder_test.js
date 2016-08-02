@@ -2,25 +2,27 @@ var test = require('tap').test
 var broccoli = require('..')
 var Builder = broccoli.Builder
 var RSVP = require('rsvp')
+var heimdall = require('heimdalljs')
 
 RSVP.on('error', function(error) {
   throw error
 })
 
-function countingTree (readFn) {
+function countingTree (readFn, description) {
   return {
     read: function (readTree) {
       this.readCount++
       return readFn.call(this, readTree)
     },
     readCount: 0,
+    description: description,
     cleanup: function () {
-      var self = this;
+      var self = this
 
       return RSVP.resolve()
         .then(function() {
           self.cleanupCount++
-        });
+        })
     },
     cleanupCount: 0
   }
@@ -107,7 +109,7 @@ test('Builder', function (t) {
           setTimeout(function() { resolve('parentTreeDir') }, 30)
         })
       })
-    })
+    }, 'parent')
 
     var child = countingTree(function (readTree) {
       return readTree('srcDir').then(function (dir) {
@@ -115,7 +117,7 @@ test('Builder', function (t) {
           setTimeout(function() { resolve('childTreeDir') }, 20)
         })
       })
-    })
+    }, 'child')
 
     var timeEqual = function (a, b) {
       t.equal(typeof a, 'number')
@@ -131,24 +133,83 @@ test('Builder', function (t) {
     var builder = new Builder(parent)
     builder.build().then(function (hash) {
       t.equal(hash.directory, 'parentTreeDir')
-      var parentNode = hash.graph
-      t.equal(parentNode.directory, 'parentTreeDir')
-      t.equal(parentNode.tree, parent)
-      timeEqual(parentNode.totalTime, 50e6)
-      timeEqual(parentNode.selfTime, 30e6)
-      t.equal(parentNode.subtrees.length, 1)
-      var childNode = parentNode.subtrees[0]
-      t.equal(childNode.directory, 'childTreeDir')
-      t.equal(childNode.tree, child)
-      timeEqual(childNode.totalTime, 20e6)
-      timeEqual(childNode.selfTime, 20e6)
-      t.equal(childNode.subtrees.length, 1)
-      var leafNode = childNode.subtrees[0]
-      t.equal(leafNode.directory, 'srcDir')
-      t.equal(leafNode.tree, 'srcDir')
-      t.equal(leafNode.totalTime, 0)
-      t.equal(leafNode.selfTime, 0)
-      t.equal(leafNode.subtrees.length, 0)
+      var parentBroccoliNode = hash.graph
+      t.equal(parentBroccoliNode.directory, 'parentTreeDir')
+      t.equal(parentBroccoliNode.tree, parent)
+      t.equal(parentBroccoliNode.subtrees.length, 1)
+      var childBroccoliNode = parentBroccoliNode.subtrees[0]
+      t.equal(childBroccoliNode.directory, 'childTreeDir')
+      t.equal(childBroccoliNode.tree, child)
+      t.equal(childBroccoliNode.subtrees.length, 1)
+      var leafBroccoliNode = childBroccoliNode.subtrees[0]
+      t.equal(leafBroccoliNode.directory, 'srcDir')
+      t.equal(leafBroccoliNode.tree, 'srcDir')
+      t.equal(leafBroccoliNode.subtrees.length, 0)
+
+
+      var json = heimdall.toJSON()
+
+      t.equal(json.nodes.length, 4)
+
+      var parentNode = json.nodes[1]
+      timeEqual(parentNode.stats.time.self, 30e6)
+
+      var childNode = json.nodes[2]
+      timeEqual(childNode.stats.time.self, 20e6)
+
+      var leafNode = json.nodes[3]
+      timeEqual(leafNode.stats.time.self, 0)
+
+      for (var i=0; i<json.nodes.length; ++i) {
+        delete json.nodes[i].stats.time.self
+      }
+
+      t.deepEqual(json, {
+        nodes: [{
+          _id: 0,
+          id: {
+            name: 'heimdall',
+          },
+          stats: {
+            own: {},
+            time: {},
+          },
+          children: [1],
+        }, {
+          _id: 1,
+          id: {
+            name: 'parent',
+            broccoliNode: true,
+          },
+          stats: {
+            own: {},
+            time: {},
+          },
+          children: [2],
+        }, {
+          _id: 2,
+          id: {
+            name: 'child',
+            broccoliNode: true,
+          },
+          stats: {
+            own: {},
+            time: {},
+          },
+          children: [3],
+        }, {
+          _id: 3,
+          id: {
+            name: 'srcDir',
+            broccoliNode: true,
+          },
+          stats: {
+            own: {},
+            time: {},
+          },
+          children: [],
+        }],
+      })
       t.end()
     })
   })
