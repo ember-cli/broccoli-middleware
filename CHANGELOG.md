@@ -1,5 +1,9 @@
 # master
 
+# 0.17.0
+
+* use structured logging via heimdalljs
+
 # 0.16.10
 
 * add instantion stack to node.toJSON to improve broccoli-viz output
