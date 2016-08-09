@@ -15,9 +15,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/broccolijs/broccoli"
+    "url": "https://github.com/ember-cli/broccoli"
   },
-  "homepage": "https://github.com/broccolijs/broccoli",
+  "homepage": "https://github.com/ember-cli/broccoli",
   "dependencies": {
     "findup-sync": "^0.2.1",
     "handlebars": "^4.0.4",
