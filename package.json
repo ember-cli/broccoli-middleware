@@ -4,6 +4,9 @@
   "version": "0.17.1",
   "author": "Jo Liss <joliss42@gmail.com>",
   "main": "lib/middleware.js",
+  "files": [
+    "lib"
+  ],
   "license": "MIT",
   "keywords": [
     "builder",
