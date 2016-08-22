@@ -1,6 +1,6 @@
 {
-  "name": "ember-cli-broccoli",
-  "description": "Fast client-side asset builder",
+  "name": "broccoli-middleware",
+  "description": "Broccoli asset builder middleware",
   "version": "0.17.1",
   "author": "Jo Liss <joliss42@gmail.com>",
   "main": "lib/middleware.js",
@@ -15,9 +15,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ember-cli/broccoli"
+    "url": "https://github.com/ember-cli/broccoli-middleware"
   },
-  "homepage": "https://github.com/ember-cli/broccoli",
+  "homepage": "https://github.com/ember-cli/broccoli-middleware",
   "dependencies": {
     "handlebars": "^4.0.4",
     "mime": "^1.2.11"
