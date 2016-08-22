@@ -65,6 +65,18 @@
 * Build error objects have been changed to `Builder.BuildError` objects, which
   contain additional information at `err.broccoliPayload`
 
+# 0.17.0
+
+* use structured logging via heimdalljs
+
+# 0.16.10
+
+* add instantion stack to node.toJSON to improve broccoli-viz output
+
+# 0.16.9
+
+* Update handlebars dependency
+
 # 0.16.8
 
 * Add builder hooks
