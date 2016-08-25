@@ -1,5 +1,9 @@
 # master
 
+# 0.18.1
+
+* Add missing `templates` folder to the published package
+
 # 0.18.0
 
 * Extract `broccoli-middleware` from `broccoli` repository
