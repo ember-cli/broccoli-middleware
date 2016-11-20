@@ -15,6 +15,20 @@ npm install broccoli-middleware
 ```
 
 
+Development
+------------------------------------------------------------------------------
+
+When working on the error page, run:
+
+```
+yarn run dev:errors // for yarn users
+npm run dev:errors  // for npm users
+```
+
+Then, on port http://localhost:3000/ you will be able to preview errors.
+
+To experiment with different errors,  edit the `dev-errors.js` file.
+
 License
 ------------------------------------------------------------------------------
 
