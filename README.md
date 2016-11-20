@@ -27,7 +27,7 @@ npm run dev:errors  // for npm users
 
 Then, on port http://localhost:3000/ you will be able to preview errors.
 
-To experiment with different errors,  edit the `dev-errors.js` file.
+To experiment with different errors,  edit the `dev-errors.js` file, and refresh the browser located at http://localhost:3000
 
 License
 ------------------------------------------------------------------------------
