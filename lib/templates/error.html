@@ -10,6 +10,25 @@
 
     <style>
       /*
+       * Note on code styling in this file since we can't do automatic style
+       * checking:
+       *
+       *   * Attributes need to be aligned at the 41st column.  This should
+       *     allow us to have enough space to account for long prefixed
+       *     properties.
+       *   * Try to adhere to a concentric property sort order (including
+       *     property grouping):
+       *       - https://github.com/brigade/scss-lint/blob/master/data/property-sort-orders/concentric.txt
+       *   * Keep media queries next to the ID/class/tag they modify.  When in
+       *     doubt, think about how you would do it if it were SCSS, then write
+       *     the unnested version of that.
+       *   * Do not modify more than one element inside of a @media query.
+       *   * Style for mobile first (start with iPhone 4 resolution) and then
+       *     update styles as the resolution increases. The way elements look
+       *     when no media queries are applied should be the mobile version.
+       */
+
+      /*
        * Base Styles: These should rarely (if ever) need to be overridden
        */
       aside,
@@ -30,26 +49,26 @@
       section,
       *::before,
       *::after {
-        box-sizing:                               border-box;
+        box-sizing:                     border-box;
       }
 
       *::before,
       *::after {
-        display:                                  block;
+        display:                        block;
       }
 
       html {
-        font-size:                                62.5%;
+        font-size:                      62.5%;
       }
 
       body {
-        margin:                                   0;
+        margin:                         0;
 
-        padding:                                  0;
+        padding:                        0;
 
-        font-family:                              Arial, Helvetica, sans-serif;
-        font-size:                                1.4rem;
-        font-weight:                              400;
+        font-family:                    Arial, Helvetica, sans-serif;
+        font-size:                      1.4rem;
+        font-weight:                    400;
       }
 
       h1,
@@ -58,15 +77,15 @@
       h4,
       h5,
       h6 {
-        margin-top:                               0;
-        margin-bottom:                            0.1rem;
+        margin-top:                     0;
+        margin-bottom:                  0.1rem;
 
-        font-family:                              Arial, Helvetica, sans-serif;
-        font-weight:                              500;
+        font-family:                    Arial, Helvetica, sans-serif;
+        font-weight:                    500;
 
-        letter-spacing:                           0.1rem;
+        letter-spacing:                 0.1rem;
 
-        color:                                    #672317;
+        color:                          #672317;
       }
 
       h1 {
@@ -78,15 +97,19 @@
       }
 
       summary {
-        color: #E34B31;
-        font-size: 18px;
-        font-weight: bold;
-        background-color: #FCF9F7;
-        padding: 10px;
-        border-color: #E34B31;
-        border-top: 1px solid;
-        border-bottom: 1px solid;
-        cursor: pointer;
+        padding:                        1rem;
+
+        border-top:                     1px solid;
+        border-bottom:                  1px solid;
+
+        color:                          #e34b31;
+        background-color:               #fcf9f7;
+        border-color:                   #e34b31;
+
+        font-size:                      1.8rem;
+        font-weight:                    bold;
+
+        cursor:                         pointer;
       }
 
       summary:focus {
@@ -118,19 +141,19 @@
   </head>
   <body>
     <header class="error-overview">
-    <h1 class="title-message">
-      {{#if payload.message}}
-        {{payload.message}}
-      {{else}}
-        Build Error:
-      {{/if}}
-    </h1>
+      <h1 class="title-message">
+        {{#if payload.message}}
+          {{payload.message}}
+        {{else}}
+          Build Error:
+        {{/if}}
+      </h1>
 
-    {{#if payload.file}}
-      <p class="file-location">
-        {{payload.file}}{{#if payload.loc.line}}:{{payload.loc.line}}:{{payload.loc.column}}{{/if}}
-      </p>
-    {{/if}}
+      {{#if payload.file}}
+        <p class="file-location">
+          {{payload.file}}{{#if payload.loc.line}}:{{payload.loc.line}}:{{payload.loc.column}}{{/if}}
+        </p>
+      {{/if}}
     </header>
 
     {{#if payload.codeFrame}}
