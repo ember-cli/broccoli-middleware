@@ -11,15 +11,51 @@
     {{#if liveReloadPath}}
       <script src="{{liveReloadPath}}"></script>
     {{/if}}
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #672317;
+      }
+
+      h1 {
+        margin-top: 10px;
+      }
+
+      h1, p {
+        padding-left: 10px;
+      }
+
+      summary {
+        color: #E34B31;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #FCF9F7;
+        padding: 10px;
+        border-color: #E34B31;
+        border-top: 1px solid;
+        border-bottom: 1px solid;
+        cursor: pointer;
+      }
+
+      summary:focus {
+        outline	: none;
+      }
+
+      .title-message {
+        margin-bottom: 5px;
+      }
+
+      .file-location {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 0px;
+      }
+    </style>
   </head>
   <body>
-    <h1>
-      {{#if payload.message}}
-        {{payload.message}}
-      {{else}}
-        Build Error:
-      {{/if}}
-    </h1>
     <style>
 
 /* http://prismjs.com/download.html?themes=prism&languages=markup+css+clike+javascript */
@@ -76,11 +112,6 @@ pre[class*="language-"] {
 	padding: 1em;
 	margin: .5em 0;
 	overflow: auto;
-}
-
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-	background: #f5f2f0;
 }
 
 /* Inline code */
@@ -170,33 +201,42 @@ Prism.languages.clike={comment:[{pattern:/(^|[^\\])\/\*[\w\W]*?\*\//,lookbehind:
 Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,number:/\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,"function":/[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i,operator:/--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*\*?|\/|~|\^|%|\.{3}/}),Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^\/])\/(?!\/)(\[.+?]|\\.|[^\/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,lookbehind:!0,greedy:!0}}),Prism.languages.insertBefore("javascript","string",{"template-string":{pattern:/`(?:\\\\|\\?[^\\])*?`/,greedy:!0,inside:{interpolation:{pattern:/\$\{[^}]+\}/,inside:{"interpolation-punctuation":{pattern:/^\$\{|\}$/,alias:"punctuation"},rest:Prism.languages.javascript}},string:/[\s\S]+/}}}),Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(<script[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,lookbehind:!0,inside:Prism.languages.javascript,alias:"language-javascript"}}),Prism.languages.js=Prism.languages.javascript;
 </script>
 
-    <pre>
-      {{#if payload.codeFrame}}
-        <code class="language-{{payload.extension}}">
-          {{{payload.codeFrame}}}
-        </code>
+
+    <h1 class="title-message">
+      {{#if payload.message}}
+        {{payload.message}}
+      {{else}}
+        Build Error:
       {{/if}}
-    </pre>
+    </h1>
+
+    {{#if payload.file}}
+      <p class="file-location">
+        {{payload.file}}{{#if payload.loc.line}}:{{payload.loc.line}}:{{payload.loc.column}}{{/if}}
+      </p>
+    {{/if}}
+
+    {{#if payload.codeFrame}}
+      <details open>
+        <summary>Error Location</summary>
+        <pre><code class="language-{{payload.extension}}">{{{payload.codeFrame}}}</code></pre>
+      </details>
+    {{/if}}
+
     {{!-- The buildError.message has location and nodeLabel tacked on for easy
     terminal output, so for structured error pages like this one, we use
     payload.originalMessage. --}}
     <pre><b>{{payload.originalMessage}}</b></pre>
 
-    {{#if payload.location.file}}
-      <p>
-        in <b><code>{{payload.location.file}}</code></b>{{#if payload.location.line}}, line <b>{{payload.location.line}}</b>{{/if}}
-        {{#if payload.location.treeDir}}<span style="color: #888">(in <code>{{payload.location.treeDir}}</code>)</span>{{/if}}
-      </p>
-    {{/if}}
-
     {{#if payload.nodeLabel}}
       <p>at {{payload.nodeLabel}}</p>
     {{/if}}
+
     {{#if stack}}
-    <details>
-      <summary>Stack</summary>
-      <pre style="color: #888">{{stack}}</pre>
-    </details>
+      <details {{#unless payload.codeFrame}}open{{/unless}}>
+        <summary>Call Stack</summary>
+        <pre><code class="language-markup">{{stack}}</code></pre>
+      </details>
     {{/if}}
   </body>
 </html>
