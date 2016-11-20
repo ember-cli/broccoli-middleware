@@ -117,6 +117,7 @@
     </title>
   </head>
   <body>
+    <header class="error-overview">
     <h1 class="title-message">
       {{#if payload.message}}
         {{payload.message}}
@@ -130,6 +131,7 @@
         {{payload.file}}{{#if payload.loc.line}}:{{payload.loc.line}}:{{payload.loc.column}}{{/if}}
       </p>
     {{/if}}
+    </header>
 
     {{#if payload.codeFrame}}
       <details open>
