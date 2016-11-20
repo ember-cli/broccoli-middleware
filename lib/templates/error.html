@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>
-      {{#if payload.message}}
-        {{payload.message}}
-      {{else}}
-        Build Error:
-      {{/if}}
-    </title>
-
-    {{#if liveReloadPath}}
-      <script src="{{liveReloadPath}}"></script>
-    {{/if}}
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" />
 
@@ -111,6 +99,18 @@
         margin-top: 0px;
       }
     </style>
+
+    {{#if liveReloadPath}}
+      <script src="{{liveReloadPath}}"></script>
+    {{/if}}
+
+    <title>
+      {{#if payload.message}}
+        {{payload.message}}
+      {{else}}
+        Build Error:
+      {{/if}}
+    </title>
   </head>
   <body>
     <h1 class="title-message">
