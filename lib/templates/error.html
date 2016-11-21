@@ -88,13 +88,199 @@
         color:                          #672317;
       }
 
-      h1 {
-        margin-top: 10px;
+      p {
+        margin-top:                     0;
+        margin-bottom:                  0.1rem;
       }
 
-      h1, p {
-        padding-left: 10px;
+      dl {
+        margin:                         0;
       }
+
+      dt {
+        display:                        inline-block;
+
+        font-weight:                    bold;
+      }
+
+      dd {
+        display:                        inline-block;
+
+        margin:                         0 0 0 0.5rem;
+      }
+
+      /*
+       * Vendor Overrides
+       */
+
+      /* Remove background from Prism syntax highlighting */
+      :not(pre)>code[class*=language-],
+      pre[class*=language-] {
+        background:                     none;
+      }
+
+      /*
+       * General Styles
+       */
+      body {
+        display:                        flex;
+
+        flex-direction:                 column;
+      }
+
+      .error-overview {
+        display:                        flex;
+
+        flex:                           1 0 auto;
+        flex-direction:                 row;
+
+        padding:                        0.8rem;
+      }
+
+        @media screen and (min-width: 500px) {
+          .error-overview {
+            padding-bottom:             1rem;
+          }
+        }
+
+        @media screen and (min-width: 1440px) {
+          .error-overview {
+            padding:                    1.5rem 1.5rem 1.7rem 1.5rem;
+          }
+        }
+
+      .primary-error-information {
+        display:                        flex;
+
+        flex:                           3 0 auto;
+        flex-direction:                 column;
+        justify-content:                center;
+
+        width:                          100%;
+      }
+
+        @media screen and (min-width: 1024px) {
+          .primary-error-information {
+            width:                      initial;
+            max-width:                  66%;
+          }
+        }
+
+      .title-message {
+        margin-bottom:                  0.3rem;
+
+        font-size:                      2rem;
+        font-weight:                    bold;
+      }
+
+        @media screen and (min-width: 500px) {
+          .title-message {
+            margin-bottom:              0.5rem;
+
+            font-size:                  2.25rem;
+          }
+        }
+
+        @media screen and (min-width: 1440px) {
+          .title-message {
+            margin-bottom:              0.8rem;
+
+            font-size:                  3rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          .title-message {
+            font-size:                  3.5rem;
+          }
+        }
+
+      .file-location {
+        margin-bottom:                  0;
+
+        font-size:                      1.5rem;
+        font-weight:                    bold;
+
+        color:                          #672317;
+
+        overflow-wrap:                  break-word;
+      }
+
+        @media screen and (min-width: 1440px) {
+          .file-location {
+            font-size:                  1.6rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          .file-location {
+            font-size:                  1.75rem;
+          }
+        }
+
+      .secondary-error-information {
+        display:                        none;
+
+        flex:                           1 0 auto;
+        flex-direction:                 column;
+        justify-content:                center;
+
+        text-align:                     right;
+      }
+
+        @media screen and (min-width: 1024px) {
+          .secondary-error-information {
+            display:                    flex;
+          }
+        }
+
+      .ember-cli-logo {
+        height:                         3rem;
+      }
+
+        @media screen and (min-width: 1440px) {
+          .ember-cli-logo {
+            height:                     3.5rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          .ember-cli-logo {
+            height:                     4.25rem;
+          }
+        }
+
+      .important-versions {
+        display:                        block;
+
+        margin-top:                     0.5rem;
+
+        color:                          #943326;
+      }
+
+        @media screen and (min-width: 1440px) {
+          .important-versions {
+            font-size:                  1.7rem;
+          }
+        }
+
+      .version-item {
+        display:                        inline-block;
+
+        margin-top:                     0.2rem;
+      }
+
+      .version-item:last-of-type::after {
+        content:                        '';
+      }
+
+        @media screen and (min-width: 1024px) {
+          .version-item::after {
+            content:                    ':';
+
+            display:                    inline-block;
+          }
+        }
 
       summary {
         padding:                        1rem;
@@ -115,16 +301,6 @@
       summary:focus {
         outline	: none;
       }
-
-      .title-message {
-        margin-bottom: 5px;
-      }
-
-      .file-location {
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 0px;
-      }
     </style>
 
     {{#if liveReloadPath}}
@@ -141,6 +317,7 @@
   </head>
   <body>
     <header class="error-overview">
+      <section class="primary-error-information">
       <h1 class="title-message">
         {{#if payload.message}}
           {{payload.message}}
@@ -154,6 +331,23 @@
           {{payload.file}}{{#if payload.loc.line}}:{{payload.loc.line}}:{{payload.loc.column}}{{/if}}
         </p>
       {{/if}}
+      </section>
+
+      <section class="secondary-error-information">
+        <div class="ember-cli-logo-container">
+          <img class="ember-cli-logo" src="http://kompanee-public-assets.s3.amazonaws.com/ember-cli.png" />
+        </div>
+        <dl class="important-versions">
+          <div class="version-item">
+            <dt class="version-name">EmberCLI</dt>
+            <dd class="version-number">99.99.9999b999</dd>
+          </div>
+          <div class="version-item">
+            <dt class="version-name">Ember</dt>
+            <dd class="version-number">99.99.9999b999</dd>
+          </div>
+        </dl>
+      </section>
     </header>
 
     {{#if payload.codeFrame}}
