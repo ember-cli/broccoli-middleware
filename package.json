@@ -23,12 +23,18 @@
     "mime": "^1.2.11"
   },
   "devDependencies": {
-    "jshint": "~2.9.4"
+    "chai": "^3.5.0",
+    "express": "^4.13.4",
+    "jshint": "~2.9.4",
+    "mocha": "^2.4.5",
+    "mocha-jshint": "^2.3.1",
+    "request-promise": "^3.0.0",
+    "rsvp": "^3.3.3"
   },
   "engines": {
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "jshint lib"
+    "test": "node_modules/.bin/mocha"
   }
 }
