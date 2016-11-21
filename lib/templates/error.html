@@ -47,6 +47,7 @@
       nav,
       p,
       section,
+      summary,
       *::before,
       *::after {
         box-sizing:                     border-box;
@@ -134,7 +135,7 @@
         flex:                           1 0 auto;
         flex-direction:                 row;
 
-        padding:                        0.8rem;
+        padding:                        0.8rem 0.8rem 0.9rem 0.8rem;
       }
 
         @media screen and (min-width: 500px) {
@@ -282,8 +283,8 @@
           }
         }
 
-      summary {
-        padding:                        1rem;
+      .collapsible-section summary {
+        padding:                        0.5rem 0.5rem 0.5rem 1.25rem;
 
         border-top:                     1px solid;
         border-bottom:                  1px solid;
@@ -292,14 +293,45 @@
         background-color:               #fcf9f7;
         border-color:                   #e34b31;
 
-        font-size:                      1.8rem;
+        font-size:                      1.4rem;
         font-weight:                    bold;
 
         cursor:                         pointer;
       }
 
-      summary:focus {
-        outline	: none;
+        @media screen and (min-width: 500px) {
+          .collapsible-section summary {
+            padding-top:                0.65rem;
+            padding-bottom:             0.75rem;
+
+            font-size:                  1.5rem;
+          }
+        }
+
+        @media screen and (min-width: 1024px) {
+          .collapsible-section summary {
+            padding-top:                0.8rem;
+            padding-bottom:             0.9rem;
+          }
+        }
+
+        @media screen and (min-width: 1440px) {
+          .collapsible-section summary {
+            padding-top:                1rem;
+            padding-bottom:             1.1rem;
+
+            font-size:                  1.7rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          .collapsible-section summary {
+            font-size:                  1.8rem;
+          }
+        }
+
+      .collapsible-section summary:focus {
+        outline:                        none;
       }
     </style>
 
@@ -351,7 +383,7 @@
     </header>
 
     {{#if payload.codeFrame}}
-      <details open>
+      <details class="code-frame collapsible-section" {{#if payload.codeFrame}}open{{/if}}>
         <summary>Error Location</summary>
         <pre><code class="language-{{payload.extension}}">{{{payload.codeFrame}}}</code></pre>
       </details>
@@ -367,7 +399,7 @@
     {{/if}}
 
     {{#if stack}}
-      <details {{#unless payload.codeFrame}}open{{/unless}}>
+      <details class="call-stack collapsible-section" {{#unless payload.codeFrame}}open{{/unless}}>
         <summary>Call Stack</summary>
         <pre><code class="language-markup">{{stack}}</code></pre>
       </details>
