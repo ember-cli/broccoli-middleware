@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/line-numbers/prism-line-numbers.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/line-highlight/prism-line-highlight.min.css" />
 
     <style>
       /*
@@ -117,6 +119,9 @@
       /* Remove background from Prism syntax highlighting */
       :not(pre)>code[class*=language-],
       pre[class*=language-] {
+        margin-top:                     0;
+        margin-bottom:                  0;
+
         background:                     none;
       }
 
@@ -333,6 +338,84 @@
       .collapsible-section summary:focus {
         outline:                        none;
       }
+
+      :not(pre)>code[class*=language-],
+      pre[class*=language-] {
+        padding:                        1rem 1rem 1rem 7rem;
+
+        font-size:                      1.2rem;
+      }
+
+        @media screen and (min-width: 500px) {
+          :not(pre)>code[class*=language-],
+          pre[class*=language-] {
+          }
+        }
+
+        @media screen and (min-width: 1024px) {
+          :not(pre)>code[class*=language-],
+          pre[class*=language-] {
+            padding:                        1.2rem 1.2rem 1.2rem 8rem;
+
+            font-size:                      1.4rem;
+          }
+        }
+
+        @media screen and (min-width: 1440px) {
+          :not(pre)>code[class*=language-],
+          pre[class*=language-] {
+            padding:                        1.4rem 1.4rem 1.4rem 9rem;
+
+            font-size:                      1.4rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          :not(pre)>code[class*=language-],
+          pre[class*=language-] {
+            padding:                        1.6rem 1.6rem 1.6rem 10rem;
+
+            font-size:                      1.6rem;
+          }
+        }
+
+      .line-numbers .line-numbers-rows {
+        left:                           -6rem;
+
+        width:                          auto;
+
+        border-color:                   rgba(225, 78, 58, 0.3);
+
+        font-weight:                    bold;
+
+        letter-spacing:                 0.075rem;
+      }
+
+        @media screen and (min-width: 1024px) {
+          .line-numbers .line-numbers-rows {
+            left:                       -7rem;
+          }
+        }
+
+        @media screen and (min-width: 1440px) {
+          .line-numbers .line-numbers-rows {
+            left:                       -8rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          .line-numbers .line-numbers-rows {
+            left:                       -9rem;
+          }
+        }
+
+      .line-numbers-rows > span:before {
+        color:                          #66231a;
+      }
+
+      .line-highlight {
+        background:                     linear-gradient(to right, rgba(252, 152, 51, 0.1) 70%, rgba(252, 240, 232, 0));
+      }
     </style>
 
     {{#if liveReloadPath}}
@@ -406,5 +489,8 @@
     {{/if}}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/line-highlight/prism-line-highlight.min.js"></script>
   </body>
 </html>
