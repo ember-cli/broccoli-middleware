@@ -47,7 +47,7 @@ describe('broccoli-middleware', function() {
         autoIndex: false
       });
 
-      var wrapperMiddleware = function(req, resp, next) {
+      var wrapperMiddleware = function(req, resp /*next*/) {
         middleware(req, resp, function(err) {
           expect(resp.finished).to.be.false;
           expect(err.message).to.have.string('ENOENT');
@@ -70,9 +70,10 @@ describe('broccoli-middleware', function() {
         autoIndex: false
       });
 
-      var wrapperMiddleware = function(req, resp, next) {
-        middleware(req, resp, function(err) {
-          expect(resp.finished).to.be.false;
+      var wrapperMiddleware = function(req, resp /*next*/) {
+        middleware(req, resp, function() {
+          var isRequestFinished = resp.finished;
+          expect(isRequestFinished).to.be.false;
           done();
         })
       };
@@ -131,8 +132,8 @@ describe('broccoli-middleware', function() {
 
     beforeEach(function() {
       watcher = RSVP.Promise.reject({
-          stack: 'Build error',
-          broccoliPayload: 'Broccoli files messed up'
+        stack: 'Build error',
+        broccoliPayload: 'Broccoli files messed up'
       });
 
       watcher['builder'] = {};
