@@ -32,7 +32,7 @@ TestHTTPServer.prototype.start = function() {
   app.use(r1);
 
   var context = this;
-  return new RSVP.Promise(function(resolve, reject) {
+  return new RSVP.Promise(function(resolve /*reject*/) {
     var port = options.port || 4200;
     var host = options.host || 'localhost';
 
@@ -59,7 +59,6 @@ TestHTTPServer.prototype.start = function() {
 TestHTTPServer.prototype.request = function(urlPath, options) {
   var info = options.info;
   var url = 'http://[' + info.host + ']:' + info.port;
-  
   return request(url + urlPath);
 }
 
