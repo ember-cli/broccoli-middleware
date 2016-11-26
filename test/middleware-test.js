@@ -42,6 +42,7 @@ describe('broccoli-middleware', function() {
     });
 
     it('responds with error if file not found', function(done) {
+
       watcher['builder']['outputPath'] = fixture('basic-file');
       var middleware = broccoliMiddleware(watcher, {
         autoIndex: false
@@ -49,14 +50,15 @@ describe('broccoli-middleware', function() {
 
       var wrapperMiddleware = function(req, resp /*next*/) {
         middleware(req, resp, function(err) {
-          expect(resp.finished).to.be.false;
+          var isRequestFinished = resp.finished;
+          expect(isRequestFinished).to.be.false;
           expect(err.message).to.have.string('ENOENT');
           done();
         })
       };
-      server = new TestHTTPServer(wrapperMiddleware);
 
-      return server.start()
+      server = new TestHTTPServer(wrapperMiddleware);
+      server.start()
         .then(function(info) {
           return server.request('/non-existent-file', {
             info: info
@@ -79,7 +81,7 @@ describe('broccoli-middleware', function() {
       };
       server = new TestHTTPServer(wrapperMiddleware);
 
-      return server.start()
+      server.start()
         .then(function(info) {
           return server.request('', {
             info: info
