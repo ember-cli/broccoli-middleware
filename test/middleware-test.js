@@ -134,14 +134,7 @@ describe('broccoli-middleware', function() {
         autoIndex: false
       });
 
-      var wrapperMiddleware = function(req, resp /*next*/) {
-        middleware(req, resp, function() {
-          console.log(resp.headers);
-
-        })
-      };
-
-      server = new TestHTTPServer(wrapperMiddleware);
+      server = new TestHTTPServer(middleware);
       server.start()
         .then(function(info) {
           return server.request('/index.html', {
@@ -162,14 +155,7 @@ describe('broccoli-middleware', function() {
         autoIndex: false
       });
 
-      var wrapperMiddleware = function(req, resp /*next*/) {
-        middleware(req, resp, function() {
-          console.log(resp.headers);
-
-        })
-      };
-
-      server = new TestHTTPServer(wrapperMiddleware);
+      server = new TestHTTPServer(middleware);
       server.start()
         .then(function(info) {
           return server.request('/index.html', {
