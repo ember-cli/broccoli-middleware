@@ -127,28 +127,28 @@ describe('broccoli-middleware', function() {
         });
     });
 
-    it('responds to streaming media requests when Range headers are requested', function (done) {
+    it('responds to streaming media requests when Range headers are requested', function () {
 
       watcher['builder']['outputPath'] = fixture('basic-file');
       var middleware = broccoliMiddleware(watcher, {
         autoIndex: false
       });
 
+
       server = new TestHTTPServer(middleware);
-      server.start()
+      return server.start()
         .then(function(info) {
           return server.request('/index.html', {
-            headers: { 'Range': 'bytes=0-6'},
+            headers: {'Range': 'bytes=0-6'},
             info: info
           });
         })
         .then(function (content) {
           expect(content).to.match(/<html>/);
-          done();
-        })
+        });
     });
 
-    it('appropriately delivers byte slices corresponding to header Range values', function (done) {
+    it('appropriately delivers byte slices corresponding to header Range values', function () {
 
       watcher['builder']['outputPath'] = fixture('basic-file');
       var middleware = broccoliMiddleware(watcher, {
@@ -156,17 +156,16 @@ describe('broccoli-middleware', function() {
       });
 
       server = new TestHTTPServer(middleware);
-      server.start()
+      return server.start()
         .then(function(info) {
           return server.request('/index.html', {
-            headers: { 'Range': 'bytes=100-108'},
+            headers: {'Range': 'bytes=100-107'},
             info: info
           });
         })
         .then(function (content) {
           expect(content).to.match(/broccoli/);
-          done();
-        })
+        });
     });
   });
 
