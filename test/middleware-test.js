@@ -159,7 +159,7 @@ describe('broccoli-middleware', function() {
       return server.start()
         .then(function(info) {
           return server.request('/index.html', {
-            headers: {'Range': 'bytes=100-107'},
+            headers: {'Range': 'bytes=105-112'},
             info: info
           });
         })
