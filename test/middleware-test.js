@@ -126,6 +126,62 @@ describe('broccoli-middleware', function() {
           expect(content).to.match(/This is broccoli middleware page/);
         });
     });
+
+    it('responds to streaming media requests when Range headers are requested', function (done) {
+
+      watcher['builder']['outputPath'] = fixture('basic-file');
+      var middleware = broccoliMiddleware(watcher, {
+        autoIndex: false
+      });
+
+      var wrapperMiddleware = function(req, resp /*next*/) {
+        middleware(req, resp, function() {
+          console.log(resp.headers);
+
+        })
+      };
+
+      server = new TestHTTPServer(wrapperMiddleware);
+      server.start()
+        .then(function(info) {
+          return server.request('/index.html', {
+            headers: { 'Range': 'bytes=0-6'},
+            info: info
+          });
+        })
+        .then(function (content) {
+          expect(content).to.match(/<html>/);
+          done();
+        })
+    });
+
+    it('appropriately delivers byte slices corresponding to header Range values', function (done) {
+
+      watcher['builder']['outputPath'] = fixture('basic-file');
+      var middleware = broccoliMiddleware(watcher, {
+        autoIndex: false
+      });
+
+      var wrapperMiddleware = function(req, resp /*next*/) {
+        middleware(req, resp, function() {
+          console.log(resp.headers);
+
+        })
+      };
+
+      server = new TestHTTPServer(wrapperMiddleware);
+      server.start()
+        .then(function(info) {
+          return server.request('/index.html', {
+            headers: { 'Range': 'bytes=100-108'},
+            info: info
+          });
+        })
+        .then(function (content) {
+          expect(content).to.match(/broccoli/);
+          done();
+        })
+    });
   });
 
   describe('watcher is rejected', function() {

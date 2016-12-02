@@ -59,7 +59,7 @@ TestHTTPServer.prototype.start = function() {
 TestHTTPServer.prototype.request = function(urlPath, options) {
   var info = options.info;
   var url = 'http://[' + info.host + ']:' + info.port;
-  return request(url + urlPath);
+  return request(url + urlPath, options);
 }
 
 /**
