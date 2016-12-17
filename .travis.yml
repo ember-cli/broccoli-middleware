@@ -5,3 +5,14 @@ node_js:
   - "iojs-v1.0.0"
   - "node"
 sudo: false
+
+install:
+  - travis_retry npm install --no-optional
+
+script:
+  - npm test
+
+after_script:
+  - travis_retry npm install coveralls codeclimate-test-reporter
+  - cat coverage/lcov.info | node_modules/.bin/codeclimate-test-reporter
+  - cat coverage/lcov.info | node_modules/.bin/coveralls
