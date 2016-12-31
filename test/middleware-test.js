@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect;
 var RSVP = require('rsvp');
-var broccoliMiddleware = require('./../lib/middleware');
+var broccoliMiddleware = require('./../lib/index').watcherServerMiddleware;
 var fixture = require('./helpers/fixture-path');
 var TestHTTPServer = require('./helpers/test-http-server');
 
@@ -46,10 +46,9 @@ describe('broccoli-middleware', function() {
       });
 
       var wrapperMiddleware = function(req, resp /*next*/) {
-        middleware(req, resp, function(err) {
+        middleware(req, resp, function() {
           var isRequestFinished = resp.finished;
           expect(isRequestFinished).to.be.false;
-          expect(err.message).to.have.string('ENOENT');
           done();
         })
       };
@@ -111,11 +110,10 @@ describe('broccoli-middleware', function() {
         });
     });
 
-    it('responds with index.html if request is a directory and autoIndex is set to false', function() {
+    it('responds with index.html if request is a directory and autoIndex is set to true', function() {
       var watcher = RSVP.Promise.resolve({
         'directory': fixture('basic-file')
       });
-
       var middleware = broccoliMiddleware(watcher, {
         autoIndex: true
       });
