@@ -8,14 +8,7 @@ var TestHTTPServer = require('./helpers/test-http-server');
 
 describe('broccoli-middleware', function() {
   describe('watcher resolves correctly', function() {
-    var watcher;
     var server;
-
-    beforeEach(function() {
-      watcher = RSVP.Promise.resolve();
-
-      watcher['builder'] = {};
-    });
 
     afterEach(function() {
       server.stop();
@@ -23,7 +16,9 @@ describe('broccoli-middleware', function() {
     })
 
     it('responds with the given file if file is on disk', function() {
-      watcher['builder']['outputPath'] = fixture('basic-file');
+      var watcher = RSVP.Promise.resolve({
+        'directory': fixture('basic-file')
+      });
       var middleware = broccoliMiddleware(watcher, {
         autoIndex: false
       });
@@ -42,8 +37,10 @@ describe('broccoli-middleware', function() {
     });
 
     it('responds with error if file not found', function(done) {
+      var watcher = RSVP.Promise.resolve({
+        'directory': fixture('basic-file')
+      });
 
-      watcher['builder']['outputPath'] = fixture('basic-file');
       var middleware = broccoliMiddleware(watcher, {
         autoIndex: false
       });
@@ -67,7 +64,10 @@ describe('broccoli-middleware', function() {
     });
 
     it('bypasses broccoli-middleware if request is a directory and autoIndex is set to false', function(done) {
-      watcher['builder']['outputPath'] = fixture('no-index');
+      var watcher = RSVP.Promise.resolve({
+        'directory': fixture('no-index')
+      });
+
       var middleware = broccoliMiddleware(watcher, {
         autoIndex: false
       });
@@ -90,7 +90,10 @@ describe('broccoli-middleware', function() {
     });
 
     it('responds with directory structure template if request is a directory and autoIndex is set to true', function() {
-      watcher['builder']['outputPath'] = fixture('no-index');
+      var watcher = RSVP.Promise.resolve({
+        'directory': fixture('no-index')
+      });
+
       var middleware = broccoliMiddleware(watcher, {
         autoIndex: true
       });
@@ -109,7 +112,10 @@ describe('broccoli-middleware', function() {
     });
 
     it('responds with index.html if request is a directory and autoIndex is set to false', function() {
-      watcher['builder']['outputPath'] = fixture('basic-file');
+      var watcher = RSVP.Promise.resolve({
+        'directory': fixture('basic-file')
+      });
+
       var middleware = broccoliMiddleware(watcher, {
         autoIndex: true
       });
@@ -147,7 +153,6 @@ describe('broccoli-middleware', function() {
     })
 
     it('returns HTTP 500 when there is build error', function() {
-      watcher['builder']['outputPath'] = fixture('basic-file');
       var middleware = broccoliMiddleware(watcher, {
         autoIndex: false
       });
