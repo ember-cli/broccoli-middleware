@@ -132,6 +132,47 @@ describe('broccoli-middleware', function() {
           expect(content).to.match(/This is broccoli middleware page/);
         });
     });
+
+    it('responds to streaming media requests when Range headers are requested', function () {
+
+      watcher['builder']['outputPath'] = fixture('basic-file');
+      var middleware = broccoliMiddleware(watcher, {
+        autoIndex: false
+      });
+
+
+      server = new TestHTTPServer(middleware);
+      return server.start()
+        .then(function(info) {
+          return server.request('/index.html', {
+            headers: {'Range': 'bytes=0-6'},
+            info: info
+          });
+        })
+        .then(function (content) {
+          expect(content).to.match(/<html>/);
+        });
+    });
+
+    it('appropriately delivers byte slices corresponding to header Range values', function () {
+
+      watcher['builder']['outputPath'] = fixture('basic-file');
+      var middleware = broccoliMiddleware(watcher, {
+        autoIndex: false
+      });
+
+      server = new TestHTTPServer(middleware);
+      return server.start()
+        .then(function(info) {
+          return server.request('/index.html', {
+            headers: {'Range': 'bytes=100-107'},
+            info: info
+          });
+        })
+        .then(function (content) {
+          expect(content).to.match(/broccoli/);
+        });
+    });
   });
 
   describe('watcher is rejected', function() {
