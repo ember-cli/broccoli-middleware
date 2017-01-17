@@ -14,6 +14,22 @@ function TestHTTPServer(middleware, options) {
   this.middleware = middleware;
   this.listener = null;
   this.id = ++serverID;
+  this.app = express();
+  var r1 = express.Router();
+  r1.get('/*', middleware);
+  this.app.use(r1);
+}
+
+/**
+ * Adds a middleware to the the end of the chain.
+ *
+ * @public
+ *
+ */
+TestHTTPServer.prototype.addMiddleware = function(middleware) {
+  var router = express.Router();
+  router.get('/*', middleware);
+  this.app.use(router);
 }
 
 /**
@@ -24,12 +40,7 @@ function TestHTTPServer(middleware, options) {
  */
 TestHTTPServer.prototype.start = function() {
   var options = this.options;
-  var app = express();
-  var middleware = this.middleware;
-
-  var r1 = express.Router();
-  r1.get('/*', middleware);
-  app.use(r1);
+  var app = this.app;
 
   var context = this;
   return new RSVP.Promise(function(resolve /*reject*/) {
