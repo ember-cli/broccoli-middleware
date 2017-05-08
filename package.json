@@ -29,7 +29,7 @@
     "jshint": "~2.9.4",
     "mocha": "^3.2.0",
     "mocha-eslint": "^2.0.1",
-    "request-promise": "^3.0.0",
+    "request-promise": "^4.2.1",
     "rsvp": "^3.3.3"
   },
   "engines": {
