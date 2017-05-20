@@ -1,33 +1,496 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Build error</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"              content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/line-numbers/prism-line-numbers.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/line-highlight/prism-line-highlight.min.css" />
+
+    <style>
+      /*
+       * Note on code styling in this file since we can't do automatic style
+       * checking:
+       *
+       *   * Attributes need to be aligned at the 41st column.  This should
+       *     allow us to have enough space to account for long prefixed
+       *     properties.
+       *   * Try to adhere to a concentric property sort order (including
+       *     property grouping):
+       *       - https://github.com/brigade/scss-lint/blob/master/data/property-sort-orders/concentric.txt
+       *   * Keep media queries next to the ID/class/tag they modify.  When in
+       *     doubt, think about how you would do it if it were SCSS, then write
+       *     the unnested version of that.
+       *   * Do not modify more than one element inside of a @media query.
+       *   * Style for mobile first (start with iPhone 4 resolution) and then
+       *     update styles as the resolution increases. The way elements look
+       *     when no media queries are applied should be the mobile version.
+       */
+
+      /*
+       * Base Styles: These should rarely (if ever) need to be overridden
+       */
+      aside,
+      details,
+      dialog,
+      div,
+      footer,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      header,
+      main,
+      nav,
+      p,
+      section,
+      summary,
+      *::before,
+      *::after {
+        box-sizing:                     border-box;
+      }
+
+      *::before,
+      *::after {
+        display:                        block;
+      }
+
+      html {
+        font-size:                      62.5%;
+      }
+
+      body {
+        margin:                         0;
+
+        padding:                        0;
+
+        font-family:                    Arial, Helvetica, sans-serif;
+        font-size:                      1.4rem;
+        font-weight:                    400;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top:                     0;
+        margin-bottom:                  0.1rem;
+
+        font-family:                    Arial, Helvetica, sans-serif;
+        font-weight:                    500;
+
+        letter-spacing:                 0.1rem;
+
+        color:                          #672317;
+      }
+
+      p {
+        margin-top:                     0;
+        margin-bottom:                  0.1rem;
+      }
+
+      dl {
+        margin:                         0;
+      }
+
+      dt {
+        display:                        inline-block;
+
+        font-weight:                    bold;
+      }
+
+      dd {
+        display:                        inline-block;
+
+        margin:                         0 0 0 0.5rem;
+      }
+
+      /*
+       * Vendor Overrides
+       */
+
+      /* Remove background from Prism syntax highlighting */
+      :not(pre)>code[class*=language-],
+      pre[class*=language-] {
+        margin-top:                     0;
+        margin-bottom:                  0;
+
+        background:                     none;
+      }
+
+      /*
+       * General Styles
+       */
+      body {
+        display:                        flex;
+
+        flex-direction:                 column;
+      }
+
+      .error-overview {
+        display:                        flex;
+
+        flex:                           1 0 auto;
+        flex-direction:                 row;
+
+        padding:                        0.8rem 0.8rem 0.9rem 0.8rem;
+      }
+
+        @media screen and (min-width: 500px) {
+          .error-overview {
+            padding-bottom:             1rem;
+          }
+        }
+
+        @media screen and (min-width: 1440px) {
+          .error-overview {
+            padding:                    1.5rem 1.5rem 1.7rem 1.5rem;
+          }
+        }
+
+      .primary-error-information {
+        display:                        flex;
+
+        flex:                           3 0 auto;
+        flex-direction:                 column;
+        justify-content:                center;
+
+        width:                          100%;
+      }
+
+        @media screen and (min-width: 1024px) {
+          .primary-error-information {
+            width:                      initial;
+            max-width:                  66%;
+          }
+        }
+
+      .title-message {
+        margin-bottom:                  0.3rem;
+
+        font-size:                      2rem;
+        font-weight:                    bold;
+      }
+
+        @media screen and (min-width: 500px) {
+          .title-message {
+            margin-bottom:              0.5rem;
+
+            font-size:                  2.25rem;
+          }
+        }
+
+        @media screen and (min-width: 1440px) {
+          .title-message {
+            margin-bottom:              0.8rem;
+
+            font-size:                  3rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          .title-message {
+            font-size:                  3.5rem;
+          }
+        }
+
+      .file-location {
+        margin-bottom:                  0;
+
+        font-size:                      1.5rem;
+        font-weight:                    bold;
+
+        color:                          #672317;
+
+        overflow-wrap:                  break-word;
+      }
+
+        @media screen and (min-width: 1440px) {
+          .file-location {
+            font-size:                  1.6rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          .file-location {
+            font-size:                  1.75rem;
+          }
+        }
+
+      .secondary-error-information {
+        display:                        none;
+
+        flex:                           1 0 auto;
+        flex-direction:                 column;
+        justify-content:                center;
+
+        text-align:                     right;
+      }
+
+        @media screen and (min-width: 1024px) {
+          .secondary-error-information {
+            display:                    flex;
+          }
+        }
+
+      .ember-cli-logo {
+        height:                         3rem;
+      }
+
+        @media screen and (min-width: 1440px) {
+          .ember-cli-logo {
+            height:                     3.5rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          .ember-cli-logo {
+            height:                     4.25rem;
+          }
+        }
+
+      .important-versions {
+        display:                        block;
+
+        margin-top:                     0.5rem;
+
+        color:                          #943326;
+      }
+
+        @media screen and (min-width: 1440px) {
+          .important-versions {
+            font-size:                  1.7rem;
+          }
+        }
+
+      .version-item {
+        display:                        inline-block;
+
+        margin-top:                     0.2rem;
+      }
+
+      .version-item:last-of-type::after {
+        content:                        '';
+      }
+
+        @media screen and (min-width: 1024px) {
+          .version-item::after {
+            content:                    ':';
+
+            display:                    inline-block;
+          }
+        }
+
+      .collapsible-section summary {
+        padding:                        0.5rem 0.5rem 0.5rem 1.25rem;
+
+        border-top:                     1px solid;
+        border-bottom:                  1px solid;
+
+        color:                          #e34b31;
+        background-color:               #fcf9f7;
+        border-color:                   #e34b31;
+
+        font-size:                      1.4rem;
+        font-weight:                    bold;
+
+        cursor:                         pointer;
+      }
+
+        @media screen and (min-width: 500px) {
+          .collapsible-section summary {
+            padding-top:                0.65rem;
+            padding-bottom:             0.75rem;
+
+            font-size:                  1.5rem;
+          }
+        }
+
+        @media screen and (min-width: 1024px) {
+          .collapsible-section summary {
+            padding-top:                0.8rem;
+            padding-bottom:             0.9rem;
+          }
+        }
+
+        @media screen and (min-width: 1440px) {
+          .collapsible-section summary {
+            padding-top:                1rem;
+            padding-bottom:             1.1rem;
+
+            font-size:                  1.7rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          .collapsible-section summary {
+            font-size:                  1.8rem;
+          }
+        }
+
+      .collapsible-section summary:focus {
+        outline:                        none;
+      }
+
+      :not(pre)>code[class*=language-],
+      pre[class*=language-] {
+        padding:                        1rem 1rem 1rem 7rem;
+
+        font-size:                      1.2rem;
+      }
+
+        @media screen and (min-width: 500px) {
+          :not(pre)>code[class*=language-],
+          pre[class*=language-] {
+          }
+        }
+
+        @media screen and (min-width: 1024px) {
+          :not(pre)>code[class*=language-],
+          pre[class*=language-] {
+            padding:                        1.2rem 1.2rem 1.2rem 8rem;
+
+            font-size:                      1.4rem;
+          }
+        }
+
+        @media screen and (min-width: 1440px) {
+          :not(pre)>code[class*=language-],
+          pre[class*=language-] {
+            padding:                        1.4rem 1.4rem 1.4rem 9rem;
+
+            font-size:                      1.4rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          :not(pre)>code[class*=language-],
+          pre[class*=language-] {
+            padding:                        1.6rem 1.6rem 1.6rem 10rem;
+
+            font-size:                      1.6rem;
+          }
+        }
+
+      .line-numbers .line-numbers-rows {
+        left:                           -6rem;
+
+        width:                          auto;
+
+        border-color:                   rgba(225, 78, 58, 0.3);
+
+        font-weight:                    bold;
+
+        letter-spacing:                 0.075rem;
+      }
+
+        @media screen and (min-width: 1024px) {
+          .line-numbers .line-numbers-rows {
+            left:                       -7rem;
+          }
+        }
+
+        @media screen and (min-width: 1440px) {
+          .line-numbers .line-numbers-rows {
+            left:                       -8rem;
+          }
+        }
+
+        @media screen and (min-width: 2400px) {
+          .line-numbers .line-numbers-rows {
+            left:                       -9rem;
+          }
+        }
+
+      .line-numbers-rows > span:before {
+        color:                          #66231a;
+      }
+
+      .line-highlight {
+        background:                     linear-gradient(to right, rgba(252, 152, 51, 0.1) 70%, rgba(252, 240, 232, 0));
+      }
+    </style>
+
     {{#if liveReloadPath}}
       <script src="{{liveReloadPath}}"></script>
     {{/if}}
+
+    <title>
+      {{#if payload.message}}
+        {{payload.message}}
+      {{else}}
+        Build Error:
+      {{/if}}
+    </title>
   </head>
   <body>
-    <h1>Build error</h1>
+    <header class="error-overview">
+      <section class="primary-error-information">
+      <h1 class="title-message">
+        {{#if payload.message}}
+          {{payload.message}}
+        {{else}}
+          Build Error:
+        {{/if}}
+      </h1>
+
+      {{#if payload.file}}
+        <p class="file-location">
+          {{payload.file}}{{#if payload.loc.line}}:{{payload.loc.line}}:{{payload.loc.column}}{{/if}}
+        </p>
+      {{/if}}
+      </section>
+
+      <section class="secondary-error-information">
+        <div class="ember-cli-logo-container">
+          <img class="ember-cli-logo" src="http://kompanee-public-assets.s3.amazonaws.com/ember-cli.png" />
+        </div>
+        <dl class="important-versions">
+          <div class="version-item">
+            <dt class="version-name">EmberCLI</dt>
+            <dd class="version-number">99.99.9999b999</dd>
+          </div>
+          <div class="version-item">
+            <dt class="version-name">Ember</dt>
+            <dd class="version-number">99.99.9999b999</dd>
+          </div>
+        </dl>
+      </section>
+    </header>
+
+    {{#if payload.codeFrame}}
+      <details class="code-frame collapsible-section" {{#if payload.codeFrame}}open{{/if}}>
+        <summary>Error Location</summary>
+        <pre><code class="language-{{payload.extension}}">{{{payload.codeFrame}}}</code></pre>
+      </details>
+    {{/if}}
 
     {{!-- The buildError.message has location and nodeLabel tacked on for easy
     terminal output, so for structured error pages like this one, we use
     payload.originalMessage. --}}
     <pre><b>{{payload.originalMessage}}</b></pre>
 
-    {{#if payload.location.file}}
-      <p>
-        in <b><code>{{payload.location.file}}</code></b>{{#if payload.location.line}}, line <b>{{payload.location.line}}</b>{{/if}}
-        {{#if payload.location.treeDir}}<span style="color: #888">(in <code>{{payload.location.treeDir}}</code>)</span>{{/if}}
-      </p>
-    {{/if}}
-
     {{#if payload.nodeLabel}}
       <p>at {{payload.nodeLabel}}</p>
     {{/if}}
 
     {{#if stack}}
-      <hr>
-      <pre style="color: #888">{{stack}}</pre>
+      <details class="call-stack collapsible-section" {{#unless payload.codeFrame}}open{{/unless}}>
+        <summary>Call Stack</summary>
+        <pre><code class="language-markup">{{stack}}</code></pre>
+      </details>
     {{/if}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/line-highlight/prism-line-highlight.min.js"></script>
   </body>
 </html>
