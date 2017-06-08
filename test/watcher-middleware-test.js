@@ -56,7 +56,11 @@ describe('watcher-middleware', function() {
     beforeEach(function() {
       watcher = RSVP.Promise.reject({
         stack: 'Build error',
-        broccoliPayload: 'Broccoli files messed up'
+        broccoliPayload: {
+          error: {
+            message: 'Broccoli files messed up'
+          }
+        }
       });
 
       watcher['builder'] = {};
