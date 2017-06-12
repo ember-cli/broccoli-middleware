@@ -1,14 +1,14 @@
 'use strict';
 
-var expect = require('chai').expect;
-var RSVP = require('rsvp');
-var watcherMiddleware = require('./../lib/index').watcherMiddleware;
-var fixture = require('./helpers/fixture-path');
-var TestHTTPServer = require('./helpers/test-http-server');
+const expect = require('chai').expect;
+const RSVP = require('rsvp');
+const watcherMiddleware = require('./../lib/index').watcherMiddleware;
+const fixture = require('./helpers/fixture-path');
+const TestHTTPServer = require('./helpers/test-http-server');
 
 describe('watcher-middleware', function() {
   describe('watcher resolves correctly', function() {
-    var server;
+    let server;
 
     afterEach(function() {
       server.stop();
@@ -16,18 +16,18 @@ describe('watcher-middleware', function() {
     })
 
     it('sets the request & response headers correctly', function(done) {
-      var watcher = RSVP.Promise.resolve({
+      const watcher = RSVP.Promise.resolve({
         'directory': fixture('basic-file')
       });
 
-      var middleware = watcherMiddleware(watcher, {
+      const middleware = watcherMiddleware(watcher, {
         autoIndex: false
       });
 
-      var wrapperMiddleware = function(req, resp /*next*/) {
-        middleware(req, resp, function() {
+      const wrapperMiddleware = (req, resp /*next*/) => {
+        middleware(req, resp, () => {
           // assert request headers
-          var broccoliHeader = req.headers['x-broccoli'];
+          const broccoliHeader = req.headers['x-broccoli'];
           expect(broccoliHeader).to.have.property('url');
           expect(broccoliHeader).to.have.property('filename');
           expect(broccoliHeader).to.have.property('outputPath');
@@ -41,19 +41,19 @@ describe('watcher-middleware', function() {
       server = new TestHTTPServer(wrapperMiddleware);
 
       server.start()
-        .then(function(info) {
+        .then((info) => {
           return server.request('/index.html', {
-            info: info
+            info
           });
         });
     });
   });
 
   describe('watcher is rejected', function() {
-    var watcher;
-    var server;
+    let watcher;
+    let server;
 
-    beforeEach(function() {
+    beforeEach(() => {
       watcher = RSVP.Promise.reject({
         stack: 'Build error',
         broccoliPayload: {
@@ -66,25 +66,25 @@ describe('watcher-middleware', function() {
       watcher['builder'] = {};
     });
 
-    afterEach(function() {
+    afterEach(() => {
       server.stop();
       server = null;
     })
 
     it('returns HTTP 500 when there is build error', function() {
-      var middleware = watcherMiddleware(watcher, {
+      const middleware = watcherMiddleware(watcher, {
         autoIndex: false
       });
 
       server = new TestHTTPServer(middleware);
 
       return server.start()
-        .then(function(info) {
+        .then((info) => {
           return server.request('/index.html', {
             info: info
           });
         })
-        .catch(function(error) {
+        .catch((error) => {
           expect(error).to.match(/StatusCodeError: 500/);
         });
     });

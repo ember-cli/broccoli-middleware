@@ -1,10 +1,10 @@
 'use strict';
 
-var express = require('express');
-var request = require('request-promise');
-var RSVP = require('rsvp');
+const express = require('express');
+const request = require('request-promise');
+const RSVP = require('rsvp');
 
-var serverID = 0;
+let serverID = 0;
 
 /**
  * Express server to mock requests and responses.
@@ -15,7 +15,7 @@ function TestHTTPServer(middleware, options) {
   this.listener = null;
   this.id = ++serverID;
   this.app = express();
-  var r1 = express.Router();
+  const r1 = express.Router();
   r1.get('/*', middleware);
   this.app.use(r1);
 }
@@ -27,7 +27,7 @@ function TestHTTPServer(middleware, options) {
  *
  */
 TestHTTPServer.prototype.addMiddleware = function(middleware) {
-  var router = express.Router();
+  const router = express.Router();
   router.get('/*', middleware);
   this.app.use(router);
 }
@@ -39,20 +39,20 @@ TestHTTPServer.prototype.addMiddleware = function(middleware) {
  * @public
  */
 TestHTTPServer.prototype.start = function() {
-  var options = this.options;
-  var app = this.app;
+  const options = this.options;
+  const app = this.app;
 
-  var context = this;
-  return new RSVP.Promise(function(resolve /*reject*/) {
-    var port = options.port || 4200;
-    var host = options.host || 'localhost';
+  const context = this;
+  return new RSVP.Promise((resolve /*reject*/) => {
+    const port = options.port || 4200;
+    const host = options.host || 'localhost';
 
-    var listener = app.listen(port, host, function() {
-      var host = listener.address().address;
-      var port = listener.address().port;
+    const listener = app.listen(port, host, () => {
+      const host = listener.address().address;
+      const port = listener.address().port;
 
       context.listener = listener;
-      var info = {
+      const info = {
         host: host,
         port: port
       };
@@ -68,8 +68,8 @@ TestHTTPServer.prototype.start = function() {
  * @public
  */
 TestHTTPServer.prototype.request = function(urlPath, options) {
-  var info = options.info;
-  var url = 'http://[' + info.host + ']:' + info.port;
+  const info = options.info;
+  const url = `http://[${info.host}]:${info.port}`;
   return request(url + urlPath);
 }
 

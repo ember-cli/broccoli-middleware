@@ -1,53 +1,53 @@
 'use strict';
 
-var expect = require('chai').expect;
-var RSVP = require('rsvp');
-var broccoliMiddleware = require('./../lib/index').watcherServerMiddleware;
-var fixture = require('./helpers/fixture-path');
-var TestHTTPServer = require('./helpers/test-http-server');
+const expect = require('chai').expect;
+const RSVP = require('rsvp');
+const broccoliMiddleware = require('./../lib/index').watcherServerMiddleware;
+const fixture = require('./helpers/fixture-path');
+const TestHTTPServer = require('./helpers/test-http-server');
 
 describe('broccoli-middleware', function() {
   describe('watcher resolves correctly', function() {
-    var server;
+    let server;
 
-    afterEach(function() {
+    afterEach(() => {
       server.stop();
       server = null;
     })
 
     it('responds with the given file if file is on disk', function() {
-      var watcher = RSVP.Promise.resolve({
+      const watcher = RSVP.Promise.resolve({
         'directory': fixture('basic-file')
       });
-      var middleware = broccoliMiddleware(watcher, {
+      const middleware = broccoliMiddleware(watcher, {
         autoIndex: false
       });
 
       server = new TestHTTPServer(middleware);
 
       return server.start()
-        .then(function(info) {
+        .then((info) => {
           return server.request('/index.html', {
-            info: info
+            info
           });
         })
-        .then(function(content) {
+        .then((content) => {
           expect(content).to.match(/This is broccoli middleware page/);
         });
     });
 
     it('responds with error if file not found', function(done) {
-      var watcher = RSVP.Promise.resolve({
+      const watcher = RSVP.Promise.resolve({
         'directory': fixture('basic-file')
       });
 
-      var middleware = broccoliMiddleware(watcher, {
+      const middleware = broccoliMiddleware(watcher, {
         autoIndex: false
       });
 
-      var wrapperMiddleware = function(req, resp /*next*/) {
-        middleware(req, resp, function() {
-          var isRequestFinished = resp.finished;
+      const wrapperMiddleware = (req, resp /*next*/) => {
+        middleware(req, resp, () => {
+          const isRequestFinished = resp.finished;
           expect(isRequestFinished).to.be.false;
           done();
         })
@@ -55,25 +55,25 @@ describe('broccoli-middleware', function() {
 
       server = new TestHTTPServer(wrapperMiddleware);
       server.start()
-        .then(function(info) {
+        .then((info) => {
           return server.request('/non-existent-file', {
-            info: info
+            info
           });
         });
     });
 
     it('bypasses broccoli-middleware if request is a directory and autoIndex is set to false', function(done) {
-      var watcher = RSVP.Promise.resolve({
+      const watcher = RSVP.Promise.resolve({
         'directory': fixture('no-index')
       });
 
-      var middleware = broccoliMiddleware(watcher, {
+      const middleware = broccoliMiddleware(watcher, {
         autoIndex: false
       });
 
-      var wrapperMiddleware = function(req, resp /*next*/) {
-        middleware(req, resp, function() {
-          var isRequestFinished = resp.finished;
+      const wrapperMiddleware = (req, resp /*next*/) => {
+        middleware(req, resp, () => {
+          const isRequestFinished = resp.finished;
           expect(isRequestFinished).to.be.false;
           done();
         })
@@ -81,28 +81,28 @@ describe('broccoli-middleware', function() {
       server = new TestHTTPServer(wrapperMiddleware);
 
       server.start()
-        .then(function(info) {
+        .then((info) => {
           return server.request('', {
-            info: info
+            info
           });
         });
     });
 
     it('responds with directory structure template if request is a directory and autoIndex is set to true', function() {
-      var watcher = RSVP.Promise.resolve({
+      const watcher = RSVP.Promise.resolve({
         'directory': fixture('no-index')
       });
 
-      var middleware = broccoliMiddleware(watcher, {
+      const middleware = broccoliMiddleware(watcher, {
         autoIndex: true
       });
 
       server = new TestHTTPServer(middleware);
 
       return server.start()
-        .then(function(info) {
+        .then((info) => {
           return server.request('', {
-            info: info
+            info
           });
         })
         .then(function(content) {
@@ -111,19 +111,19 @@ describe('broccoli-middleware', function() {
     });
 
     it('responds with index.html if request is a directory and autoIndex is set to true', function() {
-      var watcher = RSVP.Promise.resolve({
+      const watcher = RSVP.Promise.resolve({
         'directory': fixture('basic-file')
       });
-      var middleware = broccoliMiddleware(watcher, {
+      const middleware = broccoliMiddleware(watcher, {
         autoIndex: true
       });
 
       server = new TestHTTPServer(middleware);
 
       return server.start()
-        .then(function(info) {
+        .then((info) => {
           return server.request('', {
-            info: info
+            info
           });
         })
         .then(function(content) {
@@ -133,10 +133,10 @@ describe('broccoli-middleware', function() {
   });
 
   describe('watcher is rejected', function() {
-    var watcher;
-    var server;
+    let watcher;
+    let server;
 
-    beforeEach(function() {
+    beforeEach(() => {
       watcher = RSVP.Promise.reject({
         stack: 'Build error',
         broccoliPayload: {
@@ -149,22 +149,22 @@ describe('broccoli-middleware', function() {
       watcher['builder'] = {};
     });
 
-    afterEach(function() {
+    afterEach(() => {
       server.stop();
       server = null;
     })
 
     it('returns HTTP 500 when there is build error', function() {
-      var middleware = broccoliMiddleware(watcher, {
+      const middleware = broccoliMiddleware(watcher, {
         autoIndex: false
       });
 
       server = new TestHTTPServer(middleware);
 
       return server.start()
-        .then(function(info) {
+        .then((info) => {
           return server.request('/index.html', {
-            info: info
+            info
           });
         })
         .catch(function(error) {
