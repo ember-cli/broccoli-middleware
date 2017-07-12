@@ -28,7 +28,7 @@
     "eslint-plugin-chai-expect": "^1.1.1",
     "jshint": "~2.9.4",
     "mocha": "^3.2.0",
-    "mocha-eslint": "^2.0.1",
+    "mocha-eslint": "^4.0.0",
     "request-promise": "^3.0.0",
     "rsvp": "^3.3.3"
   },
