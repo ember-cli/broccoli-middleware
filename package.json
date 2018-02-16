@@ -20,7 +20,7 @@
   "homepage": "https://github.com/ember-cli/broccoli-middleware",
   "dependencies": {
     "handlebars": "^4.0.4",
-    "mime": "^1.2.11"
+    "mime": "^2.0.0"
   },
   "devDependencies": {
     "chai": "^4.0.2",
