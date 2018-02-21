@@ -1,6 +1,8 @@
 # Changelog
 
-## master
+## 1.1.0 (2018-02-21)
+
+* Add Tomster to error page (#41)
 
 ## 1.0.0 (2017-07-26)
 
