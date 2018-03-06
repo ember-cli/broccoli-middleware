@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 (2018-03-06)
+
+* Add support for `application/wasm` files (drop `mime` library in favor of `mime-types`).
+
 ## 1.1.0 (2018-02-21)
 
 * Add Tomster to error page (#41)
