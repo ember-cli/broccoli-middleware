@@ -3,6 +3,7 @@
 const express = require('express');
 const request = require('request-promise');
 const RSVP = require('rsvp');
+const http = require('http');
 
 let serverID = 0;
 
@@ -30,7 +31,7 @@ TestHTTPServer.prototype.addMiddleware = function(middleware) {
   const router = express.Router();
   router.get('/*', middleware);
   this.app.use(router);
-}
+};
 
 /**
  * Starts the express server on the given host and port. Host defaults to localhost and
@@ -60,7 +61,7 @@ TestHTTPServer.prototype.start = function() {
       resolve(info);
     });
   });
-}
+};
 
 /**
  * Allows to make a request to the given path.
@@ -71,7 +72,7 @@ TestHTTPServer.prototype.request = function(urlPath, options) {
   const info = options.info;
   const url = `http://[${info.host}]:${info.port}`;
   return request(url + urlPath);
-}
+};
 
 /**
  * Kills the express server.
@@ -81,7 +82,9 @@ TestHTTPServer.prototype.request = function(urlPath, options) {
 TestHTTPServer.prototype.stop = function() {
   if (this.listener) {
     this.listener.close();
+    this.listener = null;
+    http.globalAgent.destroy();
   }
-}
+};
 
 module.exports = TestHTTPServer;
