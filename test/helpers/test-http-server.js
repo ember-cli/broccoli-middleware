@@ -70,8 +70,12 @@ TestHTTPServer.prototype.start = function() {
  */
 TestHTTPServer.prototype.request = function(urlPath, options) {
   const info = options.info;
-  const url = `http://[${info.host}]:${info.port}`;
-  return request(url + urlPath);
+  const reqOptions = {
+    method: 'GET',
+    uri: `http://[${info.host}]:${info.port}${urlPath}`,
+    resolveWithFullResponse: options.resolveWithFullResponse === true
+  };
+  return request(reqOptions);
 };
 
 /**
