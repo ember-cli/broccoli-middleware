@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1 (2018-03-07)
+
+* Fix issue causing an error to be thrown for invalid content types by falling back to `application/octet-stream`.
+
 ## 1.2.0 (2018-03-06)
 
 * Add support for `application/wasm` files (drop `mime` library in favor of `mime-types`).
