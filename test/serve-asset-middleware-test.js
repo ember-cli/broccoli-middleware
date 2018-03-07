@@ -40,6 +40,37 @@ describe('serve-middleware', function() {
         });
     });
 
+    it('serves the given file without an extension', function() {
+      const watcher = RSVP.Promise.resolve({
+        directory: fixture('basic-file')
+      });
+
+      const middleware = watcherMiddleware(watcher, {
+        autoIndex: false
+      });
+
+      server = new TestHTTPServer(middleware);
+      server.addMiddleware(serveAssetMiddleware);
+
+      return server
+        .start()
+        .then(info => {
+          return server.request('/noext', {
+            info: info,
+            resolveWithFullResponse: true
+          });
+        })
+        .then(res => {
+          expect(res.headers['content-type']).to.equal(
+            'application/octet-stream'
+          );
+          expect(res.headers['content-length']).to.equal(
+            'content'.length.toString()
+          );
+          expect(res.body).to.equal('content');
+        });
+    });
+
     it('serves the content-type according to the header', function() {
       const watcher = RSVP.Promise.resolve({
         directory: fixture('wasm-file')
