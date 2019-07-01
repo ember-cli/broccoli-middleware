@@ -172,4 +172,71 @@ describe('broccoli-middleware', function() {
         });
     });
   });
+
+  describe('formats build errors', function() {
+    let server;
+
+    afterEach(() => {
+      server.stop();
+      server = null;
+    })
+
+    it('converts ANSI codes to HTML from the error stack', function() {
+      let watcher = RSVP.Promise.reject({
+        broccoliPayload: {
+          error: {
+            message: 'Babel ran into an error',
+            stack: '\u001b[35m102\u001b[39m\u001b[33m\u001b[0m'
+          }
+        }
+      });
+
+      watcher['builder'] = {};
+
+      const middleware = broccoliMiddleware(watcher, {
+        autoIndex: false
+      });
+
+      server = new TestHTTPServer(middleware);
+
+      return server.start()
+        .then((info) => {
+          return server.request('/index.html', {
+            info
+          });
+        })
+        .catch(function(error) {
+          expect(error.error).to.include('<span style="color:#ff00ff;">102</span>');
+        });
+    });
+
+    it('escapes error messages when there are no ANSI codes', function() {
+      let watcher = RSVP.Promise.reject({
+        broccoliPayload: {
+          error: {
+            message: 'Babel ran into an error',
+            stack: `{{/if}</div>\n-----^\nExpecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SEXPR', 'ID', 'OPEN_BLOCK_PARAMS', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', 'SEP', got 'INVALID'`
+          }
+        }
+      });
+
+      watcher['builder'] = {};
+
+      const middleware = broccoliMiddleware(watcher, {
+        autoIndex: false
+      });
+
+      server = new TestHTTPServer(middleware);
+
+      return server.start()
+        .then((info) => {
+          return server.request('/index.html', {
+            info
+          });
+        })
+        .catch(function(error) {
+          expect(error.error).to.include(`{{/if}&lt;/div&gt;\n-----^\nExpecting &#x27;CLOSE_RAW_BLOCK&#x27;, &#x27;CLOSE&#x27;, &#x27;CLOSE_UNESCAPED&#x27;, &#x27;OPEN_SEXPR&#x27;, &#x27;CLOSE_SEXPR&#x27;, &#x27;ID&#x27;, &#x27;OPEN_BLOCK_PARAMS&#x27;, &#x27;STRING&#x27;, &#x27;NUMBER&#x27;, &#x27;BOOLEAN&#x27;, &#x27;UNDEFINED&#x27;, &#x27;NULL&#x27;, &#x27;DATA&#x27;, &#x27;SEP&#x27;, got &#x27;INVALID&#x27;`);
+        });
+    });
+  });
 });
