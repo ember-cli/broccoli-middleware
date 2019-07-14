@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0
+
+* Add support for syntax highlighting in error stacks
+* fix: security audit handlebars update
+
 ## 1.2.1 (2018-03-07)
 
 * Fix issue causing an error to be thrown for invalid content types by falling back to `application/octet-stream`.
