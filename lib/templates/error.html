@@ -14,9 +14,14 @@
       }
       pre, code {
         font-size: 15px;
-        color: #865931;
+        color: #EFEBEA;
         margin: 0;
         font-family: "SFMono-Light", monospace;
+        background: #212121;
+        overflow: scroll;
+      }
+      pre {
+        padding: 15px;
       }
       ul {
         list-style: none;
@@ -59,7 +64,13 @@
       }
       .callstack pre, .callstack code {
         font-size: 12px;
-        color: #865931;
+        color: #817F7F;
+      }
+      .message {
+        background: #212121;
+        color: #EFEBEA;
+        font-weight: normal;
+        line-height: 1.8em;
       }
       .collapsible {
         padding-top: 25px;
@@ -1091,31 +1102,34 @@ ErkJggg==" />
           <h2 class="error-message">{{location.file}}{{#if location.line}}:{{location.line}}{{/if}}</h2>
         {{/if}}
 
-        {{#if codeFrame}}
-          <pre><code class="javascript">{{codeFrame}}</code></pre>
-        {{/if}}
+          {{#if codeFrame}}
+            <pre><code class="javascript">{{#if hasAnsi}}{{{codeFrame}}}{{else}}{{codeFrame}}{{/if}}</code></pre>
+          {{/if}}
+        </div>
 
         <div class="collapsible">
           <input id="toggle" type="checkbox">
           <label for="toggle">Expand stack frames</label>
           <div class="callstack">
             <h3>Broccoli Plugin: {{nodeName}}</h3>
-            <h4>{{errorMessage}}</h4>
+            <h4 class="message">
+              <pre><code>{{#if hasAnsi}}{{{errorMessage}}}{{else}}{{errorMessage}}{{/if}}</code></pre>
+            </h4>
             {{#if stack}}
               <pre>
-                <code class="markdown">{{stack}}</code>
+                <code class="markdown">{{#if hasAnsi}}{{{stack}}}{{else}}{{stack}}{{/if}}</code>
               </pre>
             {{/if}}
 
             {{#if instantiationStack}}
               <pre>
-                <code class="markdown">{{instantiationStack}}</code>
+                <code class="markdown">{{#if hasAnsi}}{{{instantiationStack}}}{{else}}{{instantiationStack}}{{/if}}</code>
               </pre>
             {{/if}}
 
             {{#if broccoliBuilderErrorStack}}
               <pre>
-                <code class="markdown">{{broccoliBuilderErrorStack}}</code>
+                <code class="markdown">{{#if hasAnsi}}{{{broccoliBuilderErrorStack}}}{{else}}{{broccoliBuilderErrorStack}}{{/if}}</code>
               </pre>
             {{/if}}
           </div>
