@@ -173,6 +173,42 @@ describe('broccoli-middleware', function() {
     });
   });
 
+  describe('watcher is without broccoli specific error payload', function() {
+    let watcher;
+    let server;
+
+    beforeEach(() => {
+      watcher = RSVP.Promise.reject({
+        stack: 'Build error'
+      });
+
+      watcher['builder'] = {};
+    });
+
+    afterEach(() => {
+      server.stop();
+      server = null;
+    })
+
+    it('returns HTTP 500 when there is build error', function() {
+      const middleware = broccoliMiddleware(watcher, {
+        autoIndex: false
+      });
+
+      server = new TestHTTPServer(middleware);
+
+      return server.start()
+        .then((info) => {
+          return server.request('/index.html', {
+            info
+          });
+        })
+        .catch(function(error) {
+          expect(error).to.match(/StatusCodeError: 500/);
+        });
+    });
+  });
+
   describe('formats build errors', function() {
     let server;
 
