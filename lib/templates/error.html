@@ -1099,7 +1099,9 @@ ErkJggg==" />
       <article class="content">
         <h1 class="error-header">Dang! Looks like a {{errorType}}.</h1>
         {{#if location.file}}
-          <h2 class="error-message">{{location.file}}{{#if location.line}}:{{location.line}}{{/if}}</h2>
+          <h2 class="error-message" onclick="openEditorForTemplateError()">
+            {{location.file}}{{#if location.line}}:{{location.line}}{{/if}}
+          </h2>
         {{/if}}
 
           {{#if codeFrame}}
@@ -1140,5 +1142,12 @@ ErkJggg==" />
         <span>{{versionString}}</span>
       </article>
     </main>
+    <script>
+      function openEditorForTemplateError() {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', '/ember_open_editor_for_template_compilation_error', true);
+        xhr.send();
+      }
+    </script>
   </body>
 </html>
