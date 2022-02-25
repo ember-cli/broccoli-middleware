@@ -1,0 +1,29 @@
+name: CI
+
+on: "push"
+
+concurrency:
+   group: ci-${{ github.head_ref || github.ref }}
+   cancel-in-progress: true
+
+jobs:
+  tests:
+    name: "Node ${{ matrix.node-version }} - ${{ matrix.os }} "
+    runs-on: "${{ matrix.os }}-latest"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [6.x, 8.x, 10.x]
+        os: [ubuntu, windows]
+
+    steps:
+      - run: git config --global core.autocrlf input
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.5.1
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+
+      - run: "yarn install --frozen-lockfile --non-interactive"
+      - run: "yarn test"
