@@ -964,17 +964,17 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
-jshint@~2.9.4:
-  version "2.9.5"
-  resolved "https://registry.yarnpkg.com/jshint/-/jshint-2.9.5.tgz#1e7252915ce681b40827ee14248c46d34e9aa62c"
+jshint@~2.13.4:
+  version "2.13.4"
+  resolved "https://registry.yarnpkg.com/jshint/-/jshint-2.13.4.tgz#cee025a57c3f393d5455532d9ec7ccb018f890db"
+  integrity sha512-HO3bosL84b2qWqI0q+kpT/OpRJwo0R4ivgmxaO848+bo10rc50SkPnrtwSFXttW0ym4np8jbJvLwk5NziB7jIw==
   dependencies:
     cli "~1.0.0"
     console-browserify "1.1.x"
     exit "0.1.x"
     htmlparser2 "3.8.x"
-    lodash "3.7.x"
+    lodash "~4.17.21"
     minimatch "~3.0.2"
-    shelljs "0.3.x"
     strip-json-comments "1.0.x"
 
 json-schema-traverse@^0.3.0:
@@ -1034,13 +1034,14 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-lodash@3.7.x:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.7.0.tgz#3678bd8ab995057c07ade836ed2ef087da811d45"
-
 lodash@^4.0.0, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+
+lodash@~4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 media-typer@0.3.0:
   version "0.3.0"
@@ -1464,10 +1465,6 @@ shell-quote@^1.6.1:
     array-map "~0.0.0"
     array-reduce "~0.0.0"
     jsonify "~0.0.0"
-
-shelljs@0.3.x:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.3.0.tgz#3596e6307a781544f591f37da618360f31db57b1"
 
 shelljs@^0.6.0:
   version "0.6.1"
