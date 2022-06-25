@@ -24,7 +24,7 @@
     "handlebars": "^4.7.7",
     "has-ansi": "^3.0.0",
     "launch-editor": "^2.4.0",
-    "mime-types": "^2.1.18"
+    "mime-types": "^2.1.35"
   },
   "devDependencies": {
     "chai": "^4.0.2",
