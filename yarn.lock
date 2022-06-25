@@ -607,9 +607,10 @@ escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
-eslint-plugin-chai-expect@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-chai-expect/-/eslint-plugin-chai-expect-1.1.1.tgz#cd640b8b38cf6c3abcc378673b7b173b99ddc70a"
+eslint-plugin-chai-expect@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-chai-expect/-/eslint-plugin-chai-expect-3.0.0.tgz#812d7384756177b2d424040cb3c20e78606db1b2"
+  integrity sha512-NS0YBcToJl+BRKBSMCwRs/oHJIX67fG5Gvb4tGked+9Wnd1/PzKijd82B2QVKcSSOwRe+pp4RAJ2AULeck4eQw==
 
 eslint-scope@^5.1.1:
   version "5.1.1"
