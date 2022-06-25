@@ -21,7 +21,7 @@
   "dependencies": {
     "ansi-html": "^0.0.9",
     "find-up": "^5.0.0",
-    "handlebars": "^4.0.4",
+    "handlebars": "^4.7.7",
     "has-ansi": "^3.0.0",
     "launch-editor": "^2.2.1",
     "mime-types": "^2.1.18"
