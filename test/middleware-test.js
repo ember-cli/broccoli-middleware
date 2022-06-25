@@ -251,6 +251,7 @@ describe('broccoli-middleware', function() {
         broccoliPayload: {
           error: {
             message: 'Babel ran into an error',
+            // eslint-disable-next-line quotes
             stack: `{{/if}</div>\n-----^\nExpecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SEXPR', 'ID', 'OPEN_BLOCK_PARAMS', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', 'SEP', got 'INVALID'`
           }
         }
@@ -271,7 +272,7 @@ describe('broccoli-middleware', function() {
           });
         })
         .catch(function(error) {
-          expect(error.error).to.include(`{{/if}&lt;/div&gt;\n-----^\nExpecting &#x27;CLOSE_RAW_BLOCK&#x27;, &#x27;CLOSE&#x27;, &#x27;CLOSE_UNESCAPED&#x27;, &#x27;OPEN_SEXPR&#x27;, &#x27;CLOSE_SEXPR&#x27;, &#x27;ID&#x27;, &#x27;OPEN_BLOCK_PARAMS&#x27;, &#x27;STRING&#x27;, &#x27;NUMBER&#x27;, &#x27;BOOLEAN&#x27;, &#x27;UNDEFINED&#x27;, &#x27;NULL&#x27;, &#x27;DATA&#x27;, &#x27;SEP&#x27;, got &#x27;INVALID&#x27;`);
+          expect(error.error).to.include('{{/if}&lt;/div&gt;\n-----^\nExpecting &#x27;CLOSE_RAW_BLOCK&#x27;, &#x27;CLOSE&#x27;, &#x27;CLOSE_UNESCAPED&#x27;, &#x27;OPEN_SEXPR&#x27;, &#x27;CLOSE_SEXPR&#x27;, &#x27;ID&#x27;, &#x27;OPEN_BLOCK_PARAMS&#x27;, &#x27;STRING&#x27;, &#x27;NUMBER&#x27;, &#x27;BOOLEAN&#x27;, &#x27;UNDEFINED&#x27;, &#x27;NULL&#x27;, &#x27;DATA&#x27;, &#x27;SEP&#x27;, got &#x27;INVALID&#x27;');
         });
     });
   });
