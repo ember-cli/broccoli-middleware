@@ -33,7 +33,8 @@
     "jshint": "~2.13.4",
     "mocha": "^5.0.0",
     "mocha-eslint": "^2.0.1",
-    "request-promise": "^3.0.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
     "rsvp": "^4.8.5"
   },
   "engines": {
