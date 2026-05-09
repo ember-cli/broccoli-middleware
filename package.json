@@ -1,10 +1,7 @@
 {
   "name": "broccoli-middleware",
-  "description": "Broccoli asset builder middleware",
   "version": "2.1.1",
-  "author": "Jo Liss <joliss42@gmail.com>",
-  "main": "lib/index.js",
-  "license": "MIT",
+  "description": "Broccoli asset builder middleware",
   "keywords": [
     "builder",
     "build",
@@ -13,11 +10,18 @@
     "asset",
     "pipeline"
   ],
+  "homepage": "https://github.com/ember-cli/broccoli-middleware",
   "repository": {
     "type": "git",
     "url": "https://github.com/ember-cli/broccoli-middleware"
   },
-  "homepage": "https://github.com/ember-cli/broccoli-middleware",
+  "license": "MIT",
+  "author": "Jo Liss <joliss42@gmail.com>",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha"
+  },
   "dependencies": {
     "ansi-html": "^0.0.7",
     "find-up": "^3.0.0",
@@ -33,15 +37,12 @@
     "express": "^4.13.4",
     "jshint": "~2.9.4",
     "mocha": "^5.0.0",
+    "release-plan": "^0.18.0",
     "request-promise": "^3.0.0",
     "rsvp": "^4.6.1"
   },
+  "packageManager": "pnpm@10.33.4+sha512.1c67b3b359b2d408119ba1ed289f34b8fc3c6873412bec6fd264fbdc82489e510fcbecb9ce9d22dae7f3b76269d8441046014bdca53b9979cd7a561ad631b800",
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
-  },
-  "scripts": {
-    "test": "mocha",
-    "lint": "eslint ."
-  },
-  "packageManager": "pnpm@10.33.4+sha512.1c67b3b359b2d408119ba1ed289f34b8fc3c6873412bec6fd264fbdc82489e510fcbecb9ce9d22dae7f3b76269d8441046014bdca53b9979cd7a561ad631b800"
+  }
 }
