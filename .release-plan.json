@@ -1,0 +1,22 @@
+{
+  "solution": {
+    "broccoli-middleware": {
+      "impact": "patch",
+      "oldVersion": "2.1.1",
+      "newVersion": "2.1.2",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./package.json"
+    }
+  },
+  "description": "## Release (2026-05-09)\n\n* broccoli-middleware 2.1.2 (patch)\n\n#### :bug: Bug Fix\n* `broccoli-middleware`\n  * [#57](https://github.com/ember-cli/broccoli-middleware/pull/57) chore: mitigate CVE-2021-23424, upgrade ansi-html ([@MayconnW](https://github.com/MayconnW))\n\n#### :house: Internal\n* `broccoli-middleware`\n  * [#59](https://github.com/ember-cli/broccoli-middleware/pull/59) start using release-plan for releases ([@mansona](https://github.com/mansona))\n  * [#58](https://github.com/ember-cli/broccoli-middleware/pull/58) move to GithubCI ([@mansona](https://github.com/mansona))\n\n#### Committers: 2\n- Chris Manson ([@mansona](https://github.com/mansona))\n- Mayconn Oliveira ([@MayconnW](https://github.com/MayconnW))\n"
+}
