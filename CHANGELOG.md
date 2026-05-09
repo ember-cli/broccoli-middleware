@@ -1,5 +1,22 @@
 # Changelog
 
+## Release (2026-05-09)
+
+* broccoli-middleware 2.1.2 (patch)
+
+#### :bug: Bug Fix
+* `broccoli-middleware`
+  * [#57](https://github.com/ember-cli/broccoli-middleware/pull/57) chore: mitigate CVE-2021-23424, upgrade ansi-html ([@MayconnW](https://github.com/MayconnW))
+
+#### :house: Internal
+* `broccoli-middleware`
+  * [#59](https://github.com/ember-cli/broccoli-middleware/pull/59) start using release-plan for releases ([@mansona](https://github.com/mansona))
+  * [#58](https://github.com/ember-cli/broccoli-middleware/pull/58) move to GithubCI ([@mansona](https://github.com/mansona))
+
+#### Committers: 2
+- Chris Manson ([@mansona](https://github.com/mansona))
+- Mayconn Oliveira ([@MayconnW](https://github.com/MayconnW))
+
 ## 2.1.0
 
 * Add support for syntax highlighting in error stacks
