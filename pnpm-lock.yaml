@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       ansi-html:
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.9
+        version: 0.0.9
       find-up:
         specifier: ^3.0.0
         version: 3.0.0
@@ -86,8 +86,8 @@ packages:
     resolution: {integrity: sha512-wiXutNjDUlNEDWHcYH3jtZUhd3c4/VojassD8zHdHCY13xbZy2XbW+NKQwA0tWGBVzDA9qEzYwfoSsWmviidhw==}
     engines: {node: '>=0.10.0'}
 
-  ansi-html@0.0.7:
-    resolution: {integrity: sha512-JoAxEa1DfP9m2xfB/y2r/aKcwXNlltr4+0QSBC4TrLfcxyvepX2Pv0t/xpgGV5bGsDzCYV8SzjWgyCW0T9yYbA==}
+  ansi-html@0.0.9:
+    resolution: {integrity: sha512-ozbS3LuenHVxNRh/wdnN16QapUHzauqSomAl1jwwJRRsGwFwtj644lIhxfWu0Fy0acCij2+AEgHvjscq3dlVXg==}
     engines: {'0': node >= 0.8.0}
     hasBin: true
 
@@ -1194,7 +1194,7 @@ snapshots:
 
   ansi-escapes@1.4.0: {}
 
-  ansi-html@0.0.7: {}
+  ansi-html@0.0.9: {}
 
   ansi-regex@2.1.1: {}
 
