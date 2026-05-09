@@ -28,11 +28,11 @@
   },
   "devDependencies": {
     "chai": "^4.0.2",
+    "eslint": "^2.13.1",
     "eslint-plugin-chai-expect": "^1.1.1",
     "express": "^4.13.4",
     "jshint": "~2.9.4",
     "mocha": "^5.0.0",
-    "mocha-eslint": "^2.0.1",
     "request-promise": "^3.0.0",
     "rsvp": "^4.6.1"
   },
@@ -40,7 +40,8 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "eslint ."
   },
   "packageManager": "pnpm@10.33.4+sha512.1c67b3b359b2d408119ba1ed289f34b8fc3c6873412bec6fd264fbdc82489e510fcbecb9ce9d22dae7f3b76269d8441046014bdca53b9979cd7a561ad631b800"
 }
